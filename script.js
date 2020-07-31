@@ -1,245 +1,213 @@
+var pos = 0;
+var test,
+  test_status,
+  questions,
+  option,
+  options,
+  op1,
+  op2,
+  op3,
+  op4 = 0;
 var questions = [
   ['How old are you?', '24', '30', '26', '31', '30'],
   ['What is 2+2?', '4', '6', '9', '2', '4'],
   ['What is your name?', 'Alex', 'Eric', 'Sally', 'Moe', 'Moe'],
 ];
 
-var obj = {};
-
-var loc = 0;
-var counter = questions.length * 10;
-
-document.querySelector('.start').addEventListener('click', start);
+var test = document.querySelector('#test');
+var test_status = document.querySelector('#test_status');
 var time = document.querySelector('.timer');
-time.textContent = questions.length * 10;
+var howmanttime = 0;
+var counter = questions.length * 10;
+time.textContent = counter;
 
-function start() {
-  var start = document.querySelector('.text-start');
-  start.className = 'container text-start hide';
-
-  timer();
-  generateQuestion();
+function begin() {
+  document.querySelector('.start').addEventListener('click', start);
 }
 
-function reset() {
-  var questionStart = document.querySelector('.question-start');
-  questionStart.remove();
-  if (loc > parseInt(questions.length - 1)) {
-    var danswer = document.querySelector('.danswer');
-    danswer.className = 'danswer hide';
-    return false;
-  }
-  generateQuestion();
-}
-
-function timer() {
-  // console.log('sub: ' + rTime);
-
-  var timerInterval = setInterval(function (newcounter) {
-    counter--;
-    // console.log('countdown is ' + c);
-    time.textContent = counter;
-    if (loc > parseInt(questions.length - 1)) {
-      clearInterval(timerInterval);
-      theEnd(counter);
-    }
-
-    if (counter === 0 || counter <= 0) {
-      clearInterval(timerInterval);
-      var questionStart = document.querySelector('.question-start');
-      questionStart.remove();
-      theEnd(0);
-    }
-
-    if (counter <= 0) {
-      var timer = document.querySelector('.timer');
-      timer.remove();
-
-      var score = document.querySelector('#score');
-      score.remove();
-
-      clearInterval(timerInterval);
-      console.log(questionStart + '.....');
-      var questionStart = document.querySelector('.question-start');
-      questionStart.remove();
-      theEnd(counter);
-    }
-  }, 1000);
-}
-
-function generateQuestion() {
-  // console.log(loc);
-  var question = questions[loc][0];
-  // console.log(question);
-  var option1 = questions[loc][1];
-  // console.log(option1);
-  var option2 = questions[loc][2];
-  // console.log(option2);
-  var option3 = questions[loc][3];
-  // console.log(option3);
-  var option4 = questions[loc][4];
-  // console.log(option4);
-  var answer = questions[loc][5]; // store the answer
-  // console.log(answer);
-
-  var questionContainer = document.querySelector('.question');
-  // create a container
-  var qContainer = (questionContainer.appendChild(
-    document.createElement('div')
-  ).className = 'container question-start');
-
-  //create an h4 adn append it to the container
-  var q = document
-    .querySelector('.question-start')
-    .appendChild(document.createElement('h4'));
-  q.textContent = question;
-  // console.log(q);
-
-  //create Buttons
-
-  var button1 = document
-    .querySelector('.question-start')
-    .appendChild(document.createElement('button'));
-  button1.className = `answer a-${loc}-1`;
-  button1.textContent = option1;
-
-  var button2 = document
-    .querySelector('.question-start')
-    .appendChild(document.createElement('button'));
-  button2.className = `answer a-${loc}-2`;
-  button2.textContent = option2;
-
-  var button3 = document
-    .querySelector('.question-start')
-    .appendChild(document.createElement('button'));
-  button3.className = `answer a-${loc}-3`;
-  button3.textContent = option3;
-
-  var button4 = document
-    .querySelector('.question-start')
-    .appendChild(document.createElement('button'));
-  button4.className = `answer a-${loc}-4`;
-  button4.textContent = option4;
-
-  //Add event listener
-
-  var op1 = document.querySelector(`.a-${loc}-1`);
-  var op2 = document.querySelector(`.a-${loc}-2`);
-  var op3 = document.querySelector(`.a-${loc}-3`);
-  var op4 = document.querySelector(`.a-${loc}-4`);
-
-  op1.addEventListener('click', function () {
-    console.log(option1);
-    nextQuestion(option1, answer);
-  });
-  op2.addEventListener('click', function () {
-    console.log(op2);
-
-    nextQuestion(option2, answer);
-  });
-  op3.addEventListener('click', function () {
-    console.log(op3);
-
-    nextQuestion(option3, answer);
-  });
-  op4.addEventListener('click', function () {
-    console.log(op4);
-
-    nextQuestion(option4, answer);
-  });
-}
-
-function nextQuestion(option, answer) {
-  if (option == answer && loc <= parseInt(questions.length - 1)) {
-    var danswer = document.querySelector('.danswer');
-    time.textContent = counter - 0;
-    danswer.textContent = 'Good Job';
-    loc++;
-
-    setTimeout(function () {
-      danswer.className = 'danswer hide';
-    }, 1000);
-    danswer.className = 'danswer';
-  } else if (option != answer && loc <= parseInt(questions.length - 1)) {
-    counter = time.textContent = counter - 10;
-
-    console.log('Wrong');
-    var danswer = document.querySelector('.danswer');
-
-    danswer.textContent = 'Wrong';
-
-    loc++;
-
-    setTimeout(function () {
-      danswer.className = 'danswer hide';
-    }, 1000);
-
-    danswer.className = 'danswer';
-  }
-
-  reset();
-}
-
-function theEnd(counter) {
-  var end = document.querySelector('.text-end');
-  end.className = 'container text-end';
-  document.querySelector('#score').textContent = counter;
-  document.querySelector('.submit').addEventListener('click', function () {
-    var end = document.querySelector('.text-end');
-    end.className = 'container text-end hide';
-
-    var header = document.querySelector('.header');
-    header.className = 'header hide';
-
-    var highscores = document.querySelector('.highscores');
-    highscores.className = 'container highscores';
-    var scoreList = document
-      .querySelector('.scoreList')
-      .appendChild(document.createElement('li'));
-    scoreList.className = 'demo';
-
-    var initial = (document.querySelector(
-      '.demo'
-    ).innerHTML = document.getElementById('input_id').value);
-
-    console.log('initial value: ' + initial);
-
-    if (!Object.keys(obj).length) {
-      Object.assign(obj, { initial: `${initial}`, score: `${counter}` });
-    }
-
-    console.log(obj);
-
-    // localStorage.setItem('initial', JSON.stringify(obj.initial));
-    // localStorage.setItem('counter', JSON.stringify(obj.score));
-
-    // var initial1 = JSON.parse(localStorage.getItem('initial'));
-    // var counter1 = JSON.parse(localStorage.getItem('counter'));
-
-    scoreList.textContent = `${initial}-${counter}`;
-    //
-    // return false;
-
-    document.querySelector('.back-btn').addEventListener('click', backToStart);
-    document
-      .querySelector('.clear-result')
-      .addEventListener('click', function () {
-        scoreList.remove();
-      });
-  });
-}
-
-function backToStart() {
-  counter = questions.length * 10;
-  time.textContent = counter;
-  document.querySelector('#input_id').value = '';
-  console.log('counter is start' + counter);
-  loc = 0;
-  var highscores = document.querySelector('.highscores');
-  highscores.className = 'container highscores hide';
+function newBegin() {
+  console.log('position---->>> ' + pos);
+  var highscores = document.querySelector('.info');
+  highscores.className = 'hide';
+  var test_status = document.querySelector('#test_status');
+  test_status.className = 'hide';
 
   var header = document.querySelector('.header');
   header.className = 'header';
   var start = document.querySelector('.text-start');
   start.className = 'container text-start';
+  document.querySelector('.start').addEventListener('click', start);
 }
+
+function start() {
+  var test_status = document.querySelector('#test_status');
+  test_status.className = '';
+
+  var start = document.querySelector('.text-start');
+  start.className = 'container text-start hide';
+
+  timer();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (pos >= questions.length) {
+    var newCounter = counter;
+    console.log('end: ' + newCounter);
+    console.log('pos: ' + pos);
+
+    return false;
+  }
+
+  test_status.innerHTML = `Question ${pos + 1} / ${questions.length}`;
+  question = questions[pos][0];
+  op1 = questions[pos][1];
+  op2 = questions[pos][2];
+  op3 = questions[pos][3];
+  op4 = questions[pos][4];
+  answer = questions[pos][5];
+
+  test.innerHTML = `<h3> ${question} </h3>`;
+  test.innerHTML += `<button onclick='checkAnswer(this)' class="option" data-option="op1">${op1}</button> `;
+  test.innerHTML += `<button onclick='checkAnswer(this)' class="option" data-option="op2">${op2}</button> `;
+  test.innerHTML += `<button onclick='checkAnswer(this)' class="option" data-option="op3">${op3}</button>`;
+  test.innerHTML += `<button onclick='checkAnswer(this)' class="option" data-option="op4">${op4}</button> `;
+}
+function checkAnswer(ele) {
+  // options = document.querySelector('.option');
+  var btnValue = ele.innerText;
+  console.log(btnValue);
+
+  if (answer === btnValue) {
+    ele.setAttribute('class', 'correct');
+    console.log('correct');
+  } else {
+    ele.setAttribute('class', 'wrong');
+    counter = time.textContent = counter - 10;
+    console.log('wrong');
+  }
+  var myVar = setTimeout(positionIncrement, 400);
+
+  function positionIncrement() {
+    pos++;
+    renderQuestion();
+  }
+}
+
+function timer() {
+  var timerInterval = setInterval(function () {
+    counter--;
+    time.textContent = counter;
+
+    console.log('pos inside of teh timer: ' + pos);
+    if (pos > questions.length - 1) {
+      clearInterval(timerInterval);
+      theEnd(counter + 1);
+    }
+
+    if (counter === 0) {
+      clearInterval(timerInterval);
+      theEnd(0);
+    }
+
+    if (counter < 0) {
+      clearInterval(timerInterval);
+      theEnd(0);
+    }
+  }, 1000);
+}
+
+function theEnd(counter) {
+  var header = document.querySelector('.header');
+  header.className = 'header hide';
+  test_status.innerHTML = `You complited ${pos} out of ${questions.length}`;
+  console.log('counter--> ' + counter);
+  test.innerHTML = `  
+  <div class="scoreCheck">
+  <h3><strong>All Done</strong> </h3>
+    <h5><strong>final score is ${counter}<span id="score"></span</strong></h5>
+    <label><strong>Enter Initials</strong></label><input type="text" id="bind" /><button onclick='listOfThescore(this)' class="submit">Submit</button>
+   </div>
+   `;
+}
+
+function listOfThescore(ele) {
+  var btnValue = ele.innerText;
+  console.log('whats is the btn ' + btnValue);
+  var temp = document.getElementById('bind').value;
+  console.log('Temp: ' + temp);
+
+  if (btnValue == 'Submit') {
+    test.innerHTML = `
+    <div class="info" >
+    <h3><strong>Highscores</strong></h3>
+    <ol id="onOrderList"></ol>
+    <button id="back-btn">Go Back</button>
+    <button id="clear-result">Clear Highscores</button></div>
+  `;
+
+    // var scoreList = document
+    //   .querySelector('#onOrderList')
+    //   .appendChild(document.createElement('li'));
+    // scoreList.className = 'demo';
+
+    // console.log('initial value: ' + initial);
+
+    // console.log(obj);
+
+    var initial1Test = JSON.parse(localStorage.getItem('usersData')) || [];
+    var user = {
+      initial: temp,
+      score: counter,
+    };
+
+    // console.log('ppppppp: ' + JSON.stringify(initial1Test.push(user)));
+    // console.log('ppppppp: ' + JSON.stringify(initial1Test));
+    console.log('ppppppppppjjjjj: ' + JSON.stringify(initial1Test.length));
+    //var counter1 = JSON.parse(localStorage.getItem('counter'));
+    initial1Test.push(user);
+    console.log('i am inside --->' + howmanttime++);
+    console.log(counter + ' xouter');
+
+    // console.log('pppppppppp: ' + JSON.stringify(initial1Test.length));
+    // console.log('i am outside');
+
+    localStorage.setItem('userData', JSON.stringify(initial1Test));
+
+    for (var i = 0; i < initial1Test.length; i++) {
+      // console.log('i: ' + i);
+      var li = document.createElement('li');
+      if (counter == 0 || counter < 0) {
+        li.textContent = `${initial1Test[i].initial}-0`;
+      } else {
+        li.textContent = `${initial1Test[i].initial}-${
+          initial1Test[i].score + 1
+        }`;
+      }
+
+      // li.textContent = initial1Test[i].initial;
+      document.querySelector('#onOrderList').appendChild(li);
+
+      // var initial = (document.querySelector('.demo').textContent = temp);
+    }
+
+    // localStorage.setItem('counter', JSON.stringify(obj.score));
+
+    // document.getElementById('bind').value = '';
+    document.querySelector('#back-btn').addEventListener('click', function () {
+      counter = questions.length * 10;
+      time.textContent = counter;
+      //document.querySelector('#input_id').value = '';
+      console.log('counter is start' + counter);
+      pos = 0;
+      newBegin();
+    });
+
+    var clearBtn = document.getElementById('clear-result');
+    clearBtn.addEventListener('click', function () {
+      li.remove();
+    });
+  }
+}
+
+begin();

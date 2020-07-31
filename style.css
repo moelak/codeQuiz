@@ -1,0 +1,91 @@
+.right-top {
+  float: right;
+}
+
+.left-top {
+  float: left;
+}
+button.correct {
+  background: green;
+  width: 100%;
+  height: 60px;
+}
+button.wrong {
+  background: red;
+  width: 100%;
+  height: 60px;
+}
+
+.header {
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+div#test {
+  /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button.option {
+  width: 100%;
+  height: 60px;
+}
+
+div#test {
+  /* border: 1px solid black; */
+  margin-top: 20px;
+  width: 50%;
+  align-items: center;
+  margin: auto;
+}
+
+h1.text-center {
+  margin-top: 20px;
+}
+
+p.text-center {
+  margin-top: 40px;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.col.text-center {
+  margin-top: 20px;
+}
+
+button.option {
+  background: lightblue;
+}
+
+h3 {
+  line-height: 2.2;
+  background: lightsalmon;
+  width: 100%;
+  text-align: center;
+  height: 75px;
+}
+
+.scoreCheck {
+  background-color: lightblue;
+  width: 100%;
+  text-align: center;
+  padding: 25px;
+}
+.scoreCheck h3 {
+  background-color: lightblue;
+}
+
+li {
+  font-size: 18px;
+}
+.info {
+  margin-top: 40px;
+}

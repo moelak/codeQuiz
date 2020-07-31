@@ -10,62 +10,7 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      .header {
-        display: inline-block;
-        width: 100%;
-        padding: 20px;
-      }
-
-      .right-top {
-        float: right;
-      }
-
-      .left-top {
-        float: left;
-      }
-
-      .container {
-        margin-top: 60px;
-        width: 40%;
-      }
-
-      h1.text-center {
-        padding: 15px;
-      }
-
-      button {
-        background-color: #563e7c;
-        color: white;
-      }
-
-      .row {
-        padding-top: 5px;
-      }
-
-      button.answer {
-        display: flex;
-        margin-top: 10px;
-      }
-
-      .hide {
-        display: none;
-      }
-
-      .green{
-        background-color: green;
-      }
-
-      .red{
-        background-color:red;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
@@ -91,26 +36,15 @@
         </div>
       </div>
     </div>
-    <div class="question">
-    </div>
-   
+    <div class="question"></div>
 
-    <div class="container text-end hide">
-      <h3><strong>All Done</strong> </h3>
-      <h5><strong>final score is <span id="score"></span</strong></h5>
-      <label><strong>Enter Initials</strong></label><input type="text" id="input_id" /><button class="submit">Submit</button>
-    </div>
+    <h2 id="test_status"></h2>
+    <span class="timer"></span>
+    <div id="test"></div>
 
-    <hr/>
-    <div class="danswer"></div> 
+    <div id="generate-here" class="container text-end hide"></div>
 
-    <div class="container highscores hide">
-      <h3><strong>Highscores</strong></h3>
-      <ol class="scoreList"></ol>
-     <button class="back-btn">Go Back</button>
-     <button class="clear-result">Clear Highscores</button>
-    </div>
-   
+    <!-- <div class="container highscores hide"></div> -->
 
     <script src="./script.js"></script>
   </body>
