@@ -117,7 +117,7 @@ function theEnd(counter) {
   <div class="scoreCheck">
   <h3><strong>All Done</strong> </h3>
     <h5><strong>final score is ${counter}<span id="score"></span</strong></h5>
-    <label><strong>Enter Initials</strong></label><input type="text" id="bind" /><button onclick='listOfThescore(this)' class="submit">Submit</button>
+    <label><strong>Enter Initials</strong></label><input type="text" id="bind" maxlength="3"/><button onclick='listOfThescore(this)' class="submit">Submit</button>
    </div>
    `;
 }
@@ -127,7 +127,7 @@ function listOfThescore(ele) {
 
   var temp = document.getElementById('bind').value;
 
-  if (btnValue == 'Submit') {
+  if (btnValue == 'Submit' && temp != '') {
     test.innerHTML = `
     <div class="info" >
     <h3><strong>Highscores</strong></h3>
@@ -172,6 +172,8 @@ function listOfThescore(ele) {
     clearBtn.addEventListener('click', function () {
       li.remove();
     });
+  } else {
+    alert('Please insert your initial');
   }
 }
 
