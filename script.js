@@ -17,7 +17,7 @@ var questions = [
 var test = document.querySelector('#test');
 var test_status = document.querySelector('#test_status');
 var time = document.querySelector('.timer');
-var howmanttime = 0;
+var howmanyTtime = 0;
 var counter = questions.length * 10;
 time.textContent = counter;
 
@@ -26,7 +26,6 @@ function begin() {
 }
 
 function newBegin() {
-  console.log('position---->>> ' + pos);
   var highscores = document.querySelector('.info');
   highscores.className = 'hide';
   var test_status = document.querySelector('#test_status');
@@ -53,9 +52,6 @@ function start() {
 function renderQuestion() {
   if (pos >= questions.length) {
     var newCounter = counter;
-    console.log('end: ' + newCounter);
-    console.log('pos: ' + pos);
-
     return false;
   }
 
@@ -76,15 +72,12 @@ function renderQuestion() {
 function checkAnswer(ele) {
   // options = document.querySelector('.option');
   var btnValue = ele.innerText;
-  console.log(btnValue);
 
   if (answer === btnValue) {
     ele.setAttribute('class', 'correct');
-    console.log('correct');
   } else {
     ele.setAttribute('class', 'wrong');
     counter = time.textContent = counter - 10;
-    console.log('wrong');
   }
   var myVar = setTimeout(positionIncrement, 400);
 
@@ -99,7 +92,6 @@ function timer() {
     counter--;
     time.textContent = counter;
 
-    console.log('pos inside of teh timer: ' + pos);
     if (pos > questions.length - 1) {
       clearInterval(timerInterval);
       theEnd(counter + 1);
@@ -121,7 +113,6 @@ function theEnd(counter) {
   var header = document.querySelector('.header');
   header.className = 'header hide';
   test_status.innerHTML = `You complited ${pos} out of ${questions.length}`;
-  console.log('counter--> ' + counter);
   test.innerHTML = `  
   <div class="scoreCheck">
   <h3><strong>All Done</strong> </h3>
@@ -133,9 +124,8 @@ function theEnd(counter) {
 
 function listOfThescore(ele) {
   var btnValue = ele.innerText;
-  console.log('whats is the btn ' + btnValue);
+
   var temp = document.getElementById('bind').value;
-  console.log('Temp: ' + temp);
 
   if (btnValue == 'Submit') {
     test.innerHTML = `
@@ -146,36 +136,19 @@ function listOfThescore(ele) {
     <button id="clear-result">Clear Highscores</button></div>
   `;
 
-    // var scoreList = document
-    //   .querySelector('#onOrderList')
-    //   .appendChild(document.createElement('li'));
-    // scoreList.className = 'demo';
-
-    // console.log('initial value: ' + initial);
-
-    // console.log(obj);
-
     var initial1Test = JSON.parse(localStorage.getItem('usersData')) || [];
     var user = {
       initial: temp,
       score: counter,
     };
 
-    // console.log('ppppppp: ' + JSON.stringify(initial1Test.push(user)));
-    // console.log('ppppppp: ' + JSON.stringify(initial1Test));
-    console.log('ppppppppppjjjjj: ' + JSON.stringify(initial1Test.length));
-    //var counter1 = JSON.parse(localStorage.getItem('counter'));
     initial1Test.push(user);
-    console.log('i am inside --->' + howmanttime++);
-    console.log(counter + ' xouter');
-
-    // console.log('pppppppppp: ' + JSON.stringify(initial1Test.length));
-    // console.log('i am outside');
+    //console.log('i am inside --->' + howmanyTtime);
+    howmanyTtime++;
 
     localStorage.setItem('userData', JSON.stringify(initial1Test));
 
     for (var i = 0; i < initial1Test.length; i++) {
-      // console.log('i: ' + i);
       var li = document.createElement('li');
       if (counter == 0 || counter < 0) {
         li.textContent = `${initial1Test[i].initial}-0`;
@@ -185,20 +158,12 @@ function listOfThescore(ele) {
         }`;
       }
 
-      // li.textContent = initial1Test[i].initial;
       document.querySelector('#onOrderList').appendChild(li);
-
-      // var initial = (document.querySelector('.demo').textContent = temp);
     }
 
-    // localStorage.setItem('counter', JSON.stringify(obj.score));
-
-    // document.getElementById('bind').value = '';
     document.querySelector('#back-btn').addEventListener('click', function () {
       counter = questions.length * 10;
       time.textContent = counter;
-      //document.querySelector('#input_id').value = '';
-      console.log('counter is start' + counter);
       pos = 0;
       newBegin();
     });
