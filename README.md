@@ -1,7 +1,7 @@
 # Code Quiz
 
 
-![alt text](https://github.com/moelak/codeQuiz/1.png "Logo Title Text 1")
+![alt text](https://github.com/moelak/codeQuiz/blob/master/1.png "Logo Title Text 1")
 ![alt text](https://github.com/moelak/codeQuiz/2.png "Logo Title Text 1")
 ![alt text](https://github.com/moelak/codeQuiz/3.png "Logo Title Text 1")
 ![alt text](https://github.com/moelak/codeQuiz/4.png "Logo Title Text 1")
